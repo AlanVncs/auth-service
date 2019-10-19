@@ -1,0 +1,23 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "A registration and authentication service running in a Docker container",
+  "main": "src/index.js",
+  "scripts": {
+    "prod": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlanVncs/auth-service.git"
+  },
+  "author": "AlanVncs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlanVncs/auth-service/issues"
+  },
+  "homepage": "https://github.com/AlanVncs/auth-service#readme",
+  "dependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
