@@ -1,0 +1,32 @@
+version: '2'
+services:
+
+    node:
+        container_name: "node-container"
+        restart: always
+        build: .
+        image: 'node-image'
+        volumes: 
+            - ./src:/auth-service/src
+        ports:
+            - "8000:80"
+        links:
+            - 'mongodb:mongo-container-ip'
+
+    mongodb:
+        container_name: 'mongodb-container'
+        restart: always
+        image: 'mongo:latest'
+        volumes:
+            - './data/db:/data/db'
+    
+    mongo-express:
+        container_name: 'mongo-express-container'
+        restart: 'always'
+        image: 'mongo-express'
+        ports:
+            - 8001:8081
+        links:
+            - 'mongodb:mongo'
+        env_file:
+            - mongo-express-container.env
