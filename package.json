@@ -4,8 +4,8 @@
   "description": "A registration and authentication service running in a Docker container",
   "main": "src/index.js",
   "scripts": {
-    "prod": "node src/index.js -r dotenv/config dotenv_config_path=src/.env",
-    "dev": "nodemon src/index.js -r dotenv/config dotenv_config_path=src/.env"
+    "prod": "node -r dotenv/config src/index.js dotenv_config_path=src/.env",
+    "dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=src/.env"
   },
   "repository": {
     "type": "git",
