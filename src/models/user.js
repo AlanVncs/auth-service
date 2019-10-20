@@ -36,7 +36,6 @@ const userSchema = new mongoose.Schema({
         select: false,
         minlength: 8,
     },
-    token: String,
     createdAt : {
         type: Date,
         default: Date.now()
@@ -47,9 +46,7 @@ userSchema.pre('save', async function(next) {
     // Criptografa a senha e gera o token de autenticação
     try{
         const hash = await bcrypt.hash(this.password, bcryptRounds);
-        const token = await bcrypt.hash(Math.random() + '', 1);
         this.password = hash;
-        this.token = token;
         next();
     }
     catch(error){
