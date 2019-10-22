@@ -5,6 +5,8 @@ router.use(require('body-parser').json());
 
 const defaultRoute = /^\/crud$/;
 
+router.use(defaultRoute, require('./authRouter'));
+
 router.all(defaultRoute, async (req, res, next) => {
     
     switch(req.method){

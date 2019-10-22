@@ -1,7 +1,5 @@
 const mongoose = require('../services/mongoose');
-
-const bcrypt = require('bcrypt');
-const bcryptRounds = process.env.BCRYPT_ROUNDS || 10;
+const encrypt = require('../services/encrypt');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -33,7 +31,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        select: false,
         minlength: 8,
     },
     createdAt : {
@@ -45,7 +42,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function(next) {
     // Criptografa a senha e gera o token de autenticação
     try{
-        const hash = await bcrypt.hash(this.password, bcryptRounds);
+        const hash = await encrypt.hash(this.password);
         this.password = hash;
         next();
     }

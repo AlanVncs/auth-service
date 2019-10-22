@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 const jwtHash = process.env.JWT_HASH;
 
-console.log('jwthash: ' + jwtHash);
-
-
 module.exports = {
     'getToken': (object) => {
         if(jwtHash){

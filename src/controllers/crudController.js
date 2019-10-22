@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const jwt = require('../services/jwt');
 
 module.exports = {
 
@@ -9,6 +10,7 @@ module.exports = {
             foundUsers = foundUsers?[foundUsers]:null;
             if(!foundUsers){
                 res.status(404).json({'error': 'User not found', 'user': req.body});
+                return;
             }
         }
         else {
@@ -18,11 +20,14 @@ module.exports = {
     },
 
     saveUser: async (req, res) => {
-        const user = new User(req.body);
+        const userBody = req.body;
+        const user = new User(userBody);
         try {
             const response = await user.save();
-            response.password = undefined;
-            res.json(response);
+            userBody.password = undefined;
+            const token = jwt.getToken({username: response.username, admin: response.admin});
+            res.setHeader('Authorization', token);
+            res.json({user: userBody, token});
         }
         catch(error){
             res.json(error);
